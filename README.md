@@ -1,6 +1,6 @@
-# Getting Started with Create React App
+# QuickR
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+An easy-to-use QR code generator web app.
 
 ## Available Scripts
 
@@ -39,32 +39,20 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-## Learn More
+## Technologies Used
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Rust
+All QR code generation is handled in [Rust](https://www.rust-lang.org/) using [fast_qr](https://github.com/erwanvivien/fast_qr).\
+Visit [the official page](https://www.rust-lang.org/learn) to check out various ways to learn Rust!
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### WebAssembly
+In order to boost performance, this project uses [WebAssembly](https://webassembly.org).\
+The [wasm-pack](https://github.com/rustwasm/wasm-pack) and [wasm-bindgen](https://github.com/rustwasm/wasm-bindgen) were used in order to integrate React, Rust and WASM.
 
-### Code Splitting
+### React
+This project relies on [React](https://react.dev/) for the visuals. To learn React, check out the [React documentation](https://reactjs.org/).\
+Additionally, I used [Create React App](https://github.com/facebook/create-react-app) to bootstrap the project.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Credits
+While I built this application, I didn't do it all by myself. This project wouldn't be possible without all of the open-source technology it's built on.\
+Special thanks to [tkat0](https://github.com/tkat0) for the helpful on [setting up Rust and WebAssembly with React](https://www.tkat0.dev/posts/how-to-create-a-react-app-with-rust-and-wasm/). Additionally, I found [this page](https://www.barcodefaq.com/2d/qr-code/) invaluable (especially [this section](https://www.barcodefaq.com/2d/qr-code/#Common_Uses)) in learning qr code syntax.
