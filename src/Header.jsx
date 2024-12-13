@@ -1,6 +1,6 @@
 export default function Header() {
     return (<header>
-    	<h1>Quickr</h1>
-    	<p className="tagline">Create free QR codes Quickr™</p>
+    	<h1>QuickR</h1>
+    	<p className="tagline">Generate free QR codes with QuickR™</p>
     </header>);
 }
