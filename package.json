@@ -19,7 +19,8 @@
     "build:wasm": "cd wasm && wasm-pack build --target web --out-dir pkg",
     "build": "npm run build:wasm && npm run build:react",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy": "rustup default stable"
   },
   "eslintConfig": {
     "extends": [
