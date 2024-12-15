@@ -1,3 +1,184 @@
-img {
-  max-width: 200px;
+@import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap');
+
+:root {
+  font-size: 16px;
+}
+body * {
+  font-family: "Figtree", serif;
+  font-weight: 700;
+  text-decoration: none;
+  color: black;
+}
+div.App {
+  width: 100dvw;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: white;
+}
+
+/* Header */
+header {
+  width: calc(100% - 4rem);
+  padding: 0 2rem;
+  padding-bottom: 1rem;
+  border-bottom: solid 0.1875rem black;
+}
+header * {
+  margin: 0;
+}
+header h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  margin: 0.5rem 0;
+}
+header .tagline {
+  font-size: 1.25rem;
+  font-weight: 700;
+  border-left: solid 0.1875rem black;
+  padding-left: 0.25rem;
+  display: inline;
+}
+
+/* Main */
+main {
+  margin: 0 auto;
+  max-width: 60%;
+  width: fit-content;
+  border: solid 0.1875rem black;
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: row;
+  position: relative;
+}
+.alert {
+  position: absolute;
+  top: calc(100% + 1rem);
+  bottom: 0;
+}
+.alert span {
+  font-weight: 500;
+}
+.qr-holder {
+  display: inline-flex;
+  flex-direction: column;
+}
+.qr-img {
+  display: inline-block;
+  width: 12rem;
+  height: 12rem;
+  padding: 0.5rem;
+  border: solid 0.1875rem black;
+}
+.qr-img img {
+  width: 12rem;
+}
+.qr-img img.hidden {
+  visibility: hidden;
+}
+.qr-holder a {
+  width: 12rem;
+  padding: 0.5rem;
+  border: solid 0.1875rem black;
+  outline: solid 0.1875rem white;
+  margin-top: 0.5rem;
+  text-decoration: none;
+  text-align: center;
+  font-weight: 700;
+  color: black;
+}
+.qr-holder a.waiting {
+  background-color: grey;
+}
+.qr-holder a.ready:hover {
+  border: solid 0.1875rem white;
+  outline: solid 0.1875rem black;
+  color: white;
+  background-color: black;
+}
+.qr-holder a.waiting:hover {
+  border: solid 0.1875rem black;
+  outline: solid 0.1875rem white;
+  color: black;
+  background-color: grey;
+}
+
+/* Form */
+form {
+  display: inline-flex;
+  flex-direction: column;
+}
+form div {
+  display: inline-flex;
+  flex-direction: column;
+  margin: 0 2rem 1rem 0;
+}
+form label {
+  font-size: 1.5rem;
+  font-weight: 700;
+  border-left: solid 0.1875rem black;
+  padding-left: 0.1875rem;
+  margin: 0.5rem 0;
+}
+form select, form input {
+  outline: unset;
+  border: solid 0.1875rem black;
+  font-size: 1rem;
+  padding: 0.1875rem;
+}
+
+/* Footer */
+footer {
+  width: calc(100% - 4rem);
+  padding: 0 2rem;
+  padding: 1rem 2rem;
+  border-top: solid 0.1875rem black;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+}
+footer * {
+  margin-bottom: 0.5rem;
+  padding: 0.125rem;
+}
+a {
+  padding: 0.125rem;
+  padding-bottom: 0.0625rem;
+  border-bottom: solid 0.0625rem black;
+}
+a:hover {
+  background-color: black;
+  color: white;
+}
+
+
+/* Responsiveness Zone */
+
+@media screen and (max-width: 800px) {
+  main {
+    flex-direction: column;
+  }
+  form div {
+    margin-right: 0;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  main {
+    flex-direction: column;
+  }
+  .qr-holder {
+    margin: auto;
+  }
+  .qr-img {
+    width: 8rem;
+    height: 8rem;
+  }
+  .qr-img img {
+    width: 8rem;
+  }
+  .qr-holder a {
+    width: 8rem;
+  }
 }

@@ -7,6 +7,8 @@ import init, {
 export default function Form() {
   // QR Settings
   const [mode, setMode] = useState("url");
+  // eslint-disable-next-line no-unused-vars
+  const [fileType, _setFileType] = useState("svg");
   const [dataUrl, setDataUrl] = useState("");
   // Text/URL
   const [text, setText] = useState("");
@@ -30,25 +32,25 @@ export default function Form() {
       switch (mode) {
         case "text":
           if (valid_text(text)) {
-            qr = qrFromText(text, 0, "svg");
+            qr = qrFromText(text, 0, fileType);
             setDataUrl(`data:image/svg+xml;utf8,${encodeURIComponent(qr)}`);
             clear();
           }
           else {
             setDataUrl("");
-            setError("Plaintext cannot be a valid URL");
+            setError("Plaintext cannot be a valid URL.");
             setHint("Did you mean to select URL?");
           }
           break;
         case "url":
           if (valid_url(text)) {
-            qr = qrFromUrl(text, 0, "svg");
+            qr = qrFromUrl(text, 0, fileType);
             setDataUrl(`data:image/svg+xml;utf8,${encodeURIComponent(qr)}`);
             clear();
           }
           else {
             setDataUrl("");
-            setError("URLs must begin with \"www.\", \"https://\" or \"http://\"");
+            setError("URLs must begin with \"www.\", \"https://\" or \"http://\".");
             setHint("Did you mean to select text?");
           }
           break;
@@ -56,13 +58,13 @@ export default function Form() {
           return;
       }
     });
-  }, [mode, text]);
+  }, [mode, text, fileType]);
 
-  return (<>
+  return (<main>
     <form onSubmit={e => {
       e.preventDefault();
     }}>
-
+    <div>
       <label htmlFor="mode">QR Type</label>
       <select name="mode" id="mode" onChange={e => {
         e.preventDefault();
@@ -76,20 +78,25 @@ export default function Form() {
         <option value="url" >URL</option>
         <option value="text">Plaintext</option>
       </select>
-
+    </div>
+    <div>
       <label gtmlFor="text">{mode === "url" ? "URL" : mode === "text" ? "Text" : ""}</label>
       <input onChange={e => {
         e.preventDefault();
         setText(e.target.value);
       }} type="text" name="text" id="text" value={text}/>
-
-      <div className="alert">
-        <b>{error}</b>
-        <i>{hint}</i>
-      </div>
-      {/*<button type="submit">Generate QR Code</button>*/}
+    </div>
+    <div className="alert">
+      <span>{error}</span>
+      <i>{hint}</i>
+    </div>
+    {/*<button type="submit">Generate QR Code</button>*/}
     </form>
-    {dataUrl ? <a href={dataUrl}><img src={dataUrl} alt="A QR code"/></a> : ""}
-    {mode === "url" && dataUrl ? <a href={text}>{text}</a> : ""}
-  </>);
+    <div className="qr-holder">
+      <div className="qr-img">
+        <img src={dataUrl ? dataUrl : null} className={!dataUrl ? "hidden" : ""} alt="A QR code"/>
+      </div>
+      <a href={dataUrl ? dataUrl : null} download={dataUrl ? `quickr-qr.${fileType}` : null} className={!dataUrl ? "waiting qr-link" : "ready qr-link"}>Download</a>
+    </div>
+  </main>);
 }
