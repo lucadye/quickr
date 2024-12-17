@@ -4,6 +4,10 @@ import init, {
   url  as qrFromUrl, valid_url
 } from "wasm";
 
+const httpsRegex = /^https:\/\//;
+const httpRegex  = /^http:\/\//;
+const wwwRegex   = /^www\./;
+
 export default function Form() {
   // QR Settings
   const [mode, setMode] = useState("url");
@@ -12,6 +16,8 @@ export default function Form() {
   const [dataUrl, setDataUrl] = useState("");
   // Text/URL
   const [text, setText] = useState("");
+  // URL prefix
+  const [prefix, setPrefix] = useState("https://");
   // Alert
   const [error, setError] = useState("");
   const [hint, setHint] = useState("");
@@ -38,13 +44,19 @@ export default function Form() {
           }
           else {
             setDataUrl("");
-            setError("Plaintext cannot be a valid URL.");
+            if (text.match(httpsRegex)) setError("Valid plaintext must not begin with 'https://'");
+            if (text.match(httpRegex )) setError("Valid plaintext must not begin with 'http://'" );
+            if (text.match(wwwRegex  )) setError("Valid plaintext must not begin with 'www.'"    );
             setHint("Did you mean to select URL?");
           }
           break;
         case "url":
-          if (valid_url(text)) {
-            qr = qrFromUrl(text, 0, fileType);
+          if (valid_url(prefix + text)) {
+            var fullText = prefix;
+            if (text.match(httpsRegex)) fullText += text.replace(httpsRegex, "");
+            else if (text.match(httpRegex )) fullText += text.replace(httpRegex, "");
+            else fullText += text;
+            qr = qrFromUrl(fullText, 0, fileType);
             setDataUrl(`data:image/svg+xml;utf8,${encodeURIComponent(qr)}`);
             clear();
           }
@@ -58,7 +70,7 @@ export default function Form() {
           return;
       }
     });
-  }, [mode, text, fileType]);
+  }, [mode, text, fileType, prefix]);
 
   return (<main>
     <form onSubmit={e => {
@@ -79,6 +91,24 @@ export default function Form() {
         <option value="text">Plaintext</option>
       </select>
     </div>
+    {mode === "url" ? (
+      <div>
+        <label htmlFor="prefix">Prefix</label>
+        <select name="prefix" id="prefix" onChange={e => {
+          e.preventDefault();
+          let value = e.target.value;
+          if (["www.", "https://", "http://"].includes(value)) {
+            setPrefix(value);
+            setDataUrl("");
+            clear();
+          }
+        }}>
+          <option value="https://" >{"https://"}</option>
+          <option value="http://">{"http://"}</option>
+          <option value="www.">{"www."}</option>
+        </select>
+      </div>
+    ) : ""}
     <div>
       <label gtmlFor="text">{mode === "url" ? "URL" : mode === "text" ? "Text" : ""}</label>
       <input onChange={e => {
